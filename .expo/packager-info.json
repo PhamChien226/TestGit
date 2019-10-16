@@ -1,9 +1,9 @@
 {
+  "expoServerNgrokUrl": "https://x2-hsp.xocvipqua.ch--t-t.exp.direct",
+  "packagerNgrokUrl": "https://packager.x2-hsp.xocvipqua.ch--t-t.exp.direct",
+  "ngrokPid": 13284,
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 2320,
-  "expoServerNgrokUrl": "https://rf-gmv.xocvipqua.testlocalrequest.exp.direct",
-  "packagerNgrokUrl": "https://packager.rf-gmv.xocvipqua.testlocalrequest.exp.direct",
-  "ngrokPid": 8580
+  "packagerPid": 6684
 }

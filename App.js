@@ -1,175 +1,194 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View } from 'react-native'
-// import AItemProduct from './components/AItemProduct' 
-import RequestComponent from './components/RequestComponent' 
-import AddView from './components/AddView' 
-import FingerPrint from './components/FingerPrint' 
-import FilterComponent from './components/FilterComponent' 
-import FilterCategory from './components/FilterCategory' 
-import ModalProvincial from './components/ModalProvincial' 
+// import AppRoot from './AppRoot';
+import AppRootContainer from './containers/AppRootContainer' 
+import {Provider} from 'react-redux';
+import { combineReducers , createStore,applyMiddleware} from 'redux'
+import { allreducers } from './reducers/index';
 
+// import  CounterContainer from "./containers/CounterContainer";
+
+// import allReducers from "./reducers"; 
+//ReduxSaga
+// import createSagaMiddleware from 'redux-saga';
+//Middleware
+
+// const sagaMiddleware = createSagaMiddleware();
+// import rootSaga from './sagas/rootSaga';
+
+
+
+// const reducers = combineReducers({
+//   authState: authStateReducer
+// })
+  // let store = createStore(allReducers,applyMiddleware(sagaMiddleware))
+let store = createStore(allreducers)
 export default class App extends Component {
-
-  addProvincial=()=>{
-    this.refs.addModal.showAddModal();
-  }
   render() {
     return (
-      <View style={styles.container}>
-        <RequestComponent/>
-        {/* <AddView/> */}
-        {/* <FingerPrint/> */}
-        {/* <FilterComponent addProvincial={this.addProvincial}/> */}
-        {/* <FilterCategory/> */}
-        {/* <ModalProvincial ref={'addModal'} transparent={this}/> */}
-      </View>
-    )
+      <Provider store={store}>
+        {/* <CounterContainer /> */}
+        <AppRootContainer/>
+      </Provider>
+    );
   }
 }
+// sagaMiddleware.run(rootSaga)
 
-const styles = StyleSheet.create({
-  container:{
-    flex:1,
-    paddingTop:15,
-    backgroundColor:"#fff"
-  }
-})
 
-// import * as React from 'react';
-// import { Button, Image, View } from 'react-native';
-// import * as ImagePicker from 'expo-image-picker';
-// import Constants from 'expo-constants';
-// import * as Permissions from 'expo-permissions';
 
-// export default class ImagePickerExample extends React.Component {
-//   state = {
-//     image: null,
-//   };
-
-//   render() {
-//     let { image } = this.state;
-
-//     return (
-//       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-//         <Button
-//           title="Pick an image from camera roll"
-//           onPress={this._pickImage}
-//         />
-//         {image &&
-//           <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
-//       </View>
-//     );
-//   }
-
-//   componentDidMount() {
-//     this.getPermissionAsync();
-//   }
-
-//   getPermissionAsync = async () => {
-//     if (Constants.platform.ios) {
-//       const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-//       if (status !== 'granted') {
-//         alert('Sorry, we need camera roll permissions to make this work!');
-//       }
-//     }
-//   }
-
-//   _pickImage = async () => {
-//     let result = await ImagePicker.launchImageLibraryAsync({
-//       mediaTypes: ImagePicker.MediaTypeOptions.All,
-//       allowsEditing: true,
-//       aspect: [4, 3],
-//     });
-
-//     console.log(result);
-
-//     if (!result.cancelled) {
-//       this.setState({ image: result.uri });
-//     }
-//   };
-// }
 // import React from "react";
-// import { StyleSheet, Text, View, TouchableOpacity, FlatList } from "react-native";
-// import { Rating, AirbnbRating } from "react-native-elements";
-// import ItemProduct from './components/ItemProduct'
+// import { View, StyleSheet, Image, Dimensions } from "react-native";
+// import AppContainer from "./navigation/MainTabNavigator";
+// import SplashScreen from "./screens/SplashScreen";
 
-// urlAPI = 'https://chotot-recommendersys.appspot.com/tech?page=0&category=laptop&city=ha-no-i&min_price=5000000&max_price=10000000&fbclid=IwAR2U1krLKBhxOLN5CbhpH-bpRdYtz-XtsFoLOGf4dOo7MpBRnoTSyMJge50'
+// let { width, height } = Dimensions.get("window");
 // export default class App extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       isloading: false,
+//       deviceId: ""
+//     };
+//   }
 
-  // state= {
-  //   // listitem:[]
-  // }
-  // onPress = async () => {
-  //   // const response = await fetch(
-  //   //   "https://chotot-recommendersys.appspot.com/register",
-  //   //   {
-  //   //     method: "POST",
-  //   //     headers: {
-  //   //       Accept: "application/json",
-  //   //       "Content-Type": "application/json"
-  //   //     },
-  //   //     body: JSON.stringify({
-  //   //       phone: "1041",
-  //   //       password: "abc"
-  //   //     })
-  //   //   }
-  //   // );
-  //   const response =  await fetch(urlAPI)
-  //   const dataJson = await response.json();
-  //   this.setState({
-  //     listitem: dataJson.ads_list_infor
-  //   })
-  // };
+//   componentWillMount = () => {
+//     // console.log('Star Call API')
+//     this.setState({
+//       isloading: true
+//     });
+//   };
 
-  // renderItem =(item)=>{
-  //   return (
-  //     <ItemProduct item = {item.item}/>
-  //   )
-  //   // console.log(item.item.basics.city);
-  //   // <Text>test</Text>
-  // }
-//   render() {
-//     return (
-//       <View style={styles.container}>
-        
-//       </View>
+//   componentDidMount = async () => {
+//     // console.log(' start Call API ')
+//     await this.getDeviceId();
+//     await this.postLogin();
+//     await this.setState({ isloading: false });
+//     // this.callAPI();
+//     // this.setState({
+//     //   isloading :false
+//     // }, ()=>setTimeout(() => {
+
+//     // }, 3000))
+//   };
+
+//   callAPI = () => {
+//     // console.log("Call API")
+//     setTimeout(() => {
+//       this.setState({ isloading: false });
+//     }, 3000);
+//   };
+//   getDeviceId = async () => {
+//     try {
+//       const value = await AsyncStorage.getItem("@fingerPrint");
+//       // console.log("value: " + value);
+//       if (value !== null) {
+//         // We have data!!
+//         this.setState({
+//           deviceId: value
+//         });
+//       } else {
+//         this._storeData();
+//       }
+//     } catch (error) {
+//       // Error retrieving data
+//     }
+//   };
+//   _storeData = async () => {
+//     var randomString = require("random-string");
+//     var uniqueId = randomString({ length: 20 });
+//     console.log("set unique id");
+//     try {
+//       await AsyncStorage.setItem("@fingerPrint", uniqueId);
+//       setTimeout(() => {
+//         this.setState({
+//           // isloading: false,
+//           deviceId: uniqueId
+//         });
+//       });
+//       //   this.setState()
+//     } catch (error) {
+//       // Error saving data
+//     }
+//   };
+
+//   postLogin = async () => {
+//     const { deviceId } = this.state;
+//     const respond = await fetch(
+//       "https://chotot-recommendersys.appspot.com/logging/create",
+//       {
+//         method: "POST",
+//         headers: {
+//           Accept: "application/json",
+//           "Content-Type": "application/json"
+//         },
+//         body: JSON.stringify({
+//           adlist_id: 1,
+//           ad_placement: "top",
+//           ad_position: 2,
+//           ad_source: "stickyad",
+//           user_fingerprint: `${deviceId}`,
+//           event_client_time: "2019-09-26T22:30:12",
+//           event_server_time: "2019-09-26T22:31:00",
+//           page_name: "ADLISTING",
+//           page_number: 1,
+//           page_device: "HANDY",
+//           filter_brand: null,
+//           filter_main_category_id: null,
+//           filter_category_id: null,
+//           filter_keyword: null,
+//           filter_price: "1200000-3000000",
+//           filter_region_id: 13000,
+//           filter_area_id: null,
+//           filter_adtype: null
+//         })
+//       }
 //     );
+//     console.log(respond);
+//   };
+
+//   render() {
+//     // console.log('render')
+//     // console.log(this.state.isloading)
+//     if (this.state.isloading === true) {
+//       // console.log("SplashScreen run");
+//       return <SplashScreen />;
+//     } else {
+//       // console.log("HomeScreen run");
+//       return (
+//         <View style={styles.container}>
+//           <AppContainer />
+//         </View>
+//       );
+//     }
 //   }
 // }
-
 // const styles = StyleSheet.create({
 //   container: {
 //     flex: 1,
-//     backgroundColor: "#fff",
+//     paddingTop: 24,
+//     backgroundColor: "#ffba00"
+//   },
+//   header: {
 //     alignItems: "center",
 //     justifyContent: "center",
-//     paddingTop:20
+//     backgroundColor: "#ffba00"
+//   },
+//   headerWrapper: {
+//     flexDirection: "row",
+//     height: 35,
+//     width: width * 0.9,
+//     borderBottomColor: "gray",
+//     borderBottomWidth: 1
+//   },
+//   textInput: {
+//     fontSize: 20,
+//     height: 40,
+//     width: "80%",
+//     paddingLeft: 10
+//   },
+//   icon: {
+//     marginTop: 6,
+//     padding: 5
 //   }
 // });
-//  // ratingCompleted(rating) {
-//   //   console.log("Rating is: " + rating)
-//   // }
-//  {/* <AirbnbRating
-//           count={5}
-//           // reviews={["Terrible", "Bad", "Meh", "OK", "Good"]}
-//           defaultRating={0}
-//           size={20}
-//           showRating={false}
-//         />
-
-//         {/* <Rating
-//           showRating
-//           onFinishRating={this.ratingCompleted}
-//           style={{ paddingVertical: 10 }}
-//         /> */} 
-
-
-//       //REquet
-//       // <TouchableOpacity onPress={this.onPress}>
-//       //     <Text>Request</Text>
-//       //   </TouchableOpacity>
-//       //     <FlatList
-//       //     data={this.state.listitem}
-//       //     renderItem={this.renderItem}
-//       //     // keyExtractor ={(item,index) => this.item.item.basics.price}
-//       //     />
+ 
